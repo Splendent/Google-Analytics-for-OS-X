@@ -6,6 +6,7 @@
 //
 
 #import "TrackerHelper.h"
+@import WebKit;
 @interface TrackerHelper()
 /* Application-specific information */
 @property (nonatomic, strong) NSString *applicationName;
@@ -42,15 +43,9 @@
 {
     if (!_userAgentString)
     {
-        SInt32 major, minor, bugfix;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        Gestalt(gestaltSystemVersionMajor, &major);
-        Gestalt(gestaltSystemVersionMinor, &minor);
-        Gestalt(gestaltSystemVersionBugFix, &bugfix);
-#pragma clang diagnostic pop
-        _userAgentString = [NSString stringWithFormat:@"%@/%@ (Macintosh; Intel Mac OS X %d_%d_%d)",
-                            self.applicationName, self.applicationVersion, major, minor, bugfix];
+        WebView * webView = [[WebView alloc] initWithFrame:NSRectFromCGRect(CGRectZero)];
+        NSString* secretAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+        _userAgentString = secretAgent?secretAgent:@"Unknown-userAgentString";
     }
     
     return _userAgentString;
