@@ -13,12 +13,13 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/MacPaw/Google-Analytics-for-OS-X.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/MacPaw'
 
-  s.platform     = :osx, '10.9'
+  s.ios.deployment_target = '9.0'
+  s.osx.deployment_target = '10.9'
   s.requires_arc = true
 
-  s.source_files = "GoogleAnalyticsTracker/**/*.{h,m}"
-  s.resources = "GoogleAnalyticsTracker/**/*.xib"
-  s.public_header_files = "GoogleAnalyticsTracker/**/*.h"
+  s.source_files = "GoogleAnalyticsTracker/*.{h,m,xib}"
+  s.osx.source_files = "GoogleAnalyticsTracker/osx/*.{h,m,xib}"
+  s.ios.source_files = "GoogleAnalyticsTracker/ios/*.{h,m,xib}"
   s.module_name = "GoogleAnalyticsTracker"
   s.header_dir = "GoogleAnalyticsTracker"
 end

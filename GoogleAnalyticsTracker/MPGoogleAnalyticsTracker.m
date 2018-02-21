@@ -9,8 +9,7 @@
 #import "MPGoogleAnalyticsTracker.h"
 #import "MPAnalyticsConfiguration.h"
 #import "MPAnalyticsParamBuilder.h"
-
-@import AppKit;
+#import "TrackerHelper.h"
 
 
 NSString *const MPUseDebugGAIDKey = @"AnalyticsUseDebugGAID";
@@ -24,16 +23,13 @@ NSString *const MPCDKey = @"cd";
 
 @property (nonatomic, strong) NSURLSession *session;
 
+/* Tracker information helper */
+@property (nonatomic, strong) TrackerHelper * trackerInfoHelper;
+
 /* Application-specific information */
-@property (nonatomic, strong, readonly) NSString *applicationName;
-@property (nonatomic, strong, readonly) NSString *applicationVersion;
 @property (nonatomic, readonly, getter=isBeta) BOOL beta;
 @property (nonatomic, readonly, getter=isDebugEnabled) BOOL debugEnabled;
 
-/* User-specific information */
-@property (nonatomic, strong, readonly) NSString *userIdentifier;
-@property (nonatomic, strong, readonly) NSString *userAgentString;
-@property (nonatomic, strong, readonly) NSString *systemInfo;
 
 @property NSString *currentScreen;
 @property NSMutableArray *modalScreens;
@@ -63,13 +59,8 @@ NSString *const MPCDKey = @"cd";
 
 @implementation MPGoogleAnalyticsTracker
 
-@synthesize applicationName = _applicationName;
-@synthesize applicationVersion = _applicationVersion;
 @synthesize beta = _isBeta;
 @synthesize debugEnabled = _debugEnabled;
-@synthesize userIdentifier = _userIdentifier;
-@synthesize userAgentString = _userAgentString;
-@synthesize systemInfo = _systemInfo;
 
 static id _sharedInstance = nil;
 + (instancetype)sharedTracker
@@ -88,12 +79,13 @@ static id _sharedInstance = nil;
     if (self)
     {
         _modalScreens = [NSMutableArray new];
-        
+        _trackerInfoHelper = [TrackerHelper new];
         NSURLSessionConfiguration *lightweightConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        lightweightConfiguration.HTTPAdditionalHeaders = @{ @"User-Agent" : self.userAgentString };
+        lightweightConfiguration.HTTPAdditionalHeaders = @{ @"User-Agent" : _trackerInfoHelper.userAgentString };
         lightweightConfiguration.HTTPMaximumConnectionsPerHost = 1;
         
         _session = [NSURLSession sessionWithConfiguration:lightweightConfiguration];
+        
     }
     return self;
 }
@@ -131,85 +123,20 @@ static id _sharedInstance = nil;
     return _debugEnabled;
 }
 
-- (NSString *)applicationName
-{
-    if (!_applicationName)
-    {
-        NSString *applicationName = [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
-        _applicationName = applicationName ?: @"Unknown";
-    }
-    
-    return _applicationName;
-}
-
-- (NSString *)applicationVersion
-{
-    if (!_applicationVersion)
-    {
-        NSMutableString *result = [NSMutableString string];
-        NSString *versionString = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
-        [result appendString:versionString ?: @"Unknown"];
-#ifdef DEBUG
-        [result appendString:@"-debug"];
-#endif
-        
-        _applicationVersion = [result copy];
-    }
-    
-    return _applicationVersion;
-}
 
 - (NSString *)userIdentifier
 {
-    if (!_userIdentifier)
-    {
-        NSString *serialNumber = NULL;
-        io_service_t platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"));
-        
-        if (platformExpert)
-        {
-            serialNumber = (__bridge_transfer NSString *)IORegistryEntryCreateCFProperty(platformExpert, CFSTR(kIOPlatformSerialNumberKey), kCFAllocatorDefault, 0);
-            IOObjectRelease(platformExpert);
-        }
-        
-        NSString *userIdentifier = NSUserName();
-        NSString *userOnSystemIdentifier = [NSString stringWithFormat:@"%@%@", serialNumber, userIdentifier];
-        _userIdentifier = [[userOnSystemIdentifier dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-    }
-    
-    return _userIdentifier;
+    return [self.trackerInfoHelper userIdentifier];
 }
 
 - (NSString *)userAgentString
 {
-    if (!_userAgentString)
-    {
-        SInt32 major, minor, bugfix;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        Gestalt(gestaltSystemVersionMajor, &major);
-        Gestalt(gestaltSystemVersionMinor, &minor);
-        Gestalt(gestaltSystemVersionBugFix, &bugfix);
-#pragma clang diagnostic pop
-        _userAgentString = [NSString stringWithFormat:@"%@/%@ (Macintosh; Intel Mac OS X %d_%d_%d)",
-                            self.applicationName, self.applicationVersion, major, minor, bugfix];
-    }
-    
-    return _userAgentString;
+    return [self.trackerInfoHelper userAgentString];
 }
 
 - (NSString *)systemInfo
 {
-    if (!_systemInfo)
-    {
-        NSRect screenFrame = NSScreen.mainScreen.frame;
-        NSString *preferredLanguage = NSLocale.preferredLanguages[0];
-        _systemInfo = [NSString stringWithFormat:@"&sr=%ldx%ld&ul=%@",
-                       (NSInteger)NSWidth(screenFrame), (NSInteger)NSHeight(screenFrame),
-                       preferredLanguage];
-    }
-    
-    return _systemInfo;
+    return [self.trackerInfoHelper systemInfo];
 }
 
 #pragma mark - Requests
@@ -242,7 +169,7 @@ static id _sharedInstance = nil;
 - (NSString *)requestStringForDictionary:(NSDictionary *)requestDictionary GAID:(NSString *)identifier
 {
     NSMutableString *result = [NSMutableString stringWithFormat:@"v=1&tid=%@&an=%@&av=%@&cid=%@",
-                               identifier, self.applicationName, self.applicationVersion, self.userIdentifier];
+                               identifier, self.trackerInfoHelper.applicationName, self.trackerInfoHelper.applicationVersion, self.trackerInfoHelper.userIdentifier];
     for (NSString *key in requestDictionary)
     {
         NSString *stringValue = [NSString stringWithFormat:@"%@", requestDictionary[key]];
