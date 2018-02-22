@@ -9,8 +9,9 @@
 #import "ViewController.h"
 
 @import GoogleAnalyticsTracker;
-
-
+@interface ViewController()
+@property (nonatomic) NSUInteger eventCount;
+@end
 @implementation ViewController
 
 - (void)viewDidLoad
@@ -19,14 +20,14 @@
     
     MPAnalyticsConfiguration *configuration = [[MPAnalyticsConfiguration alloc] initWithAnalyticsIdentifier:@"UA-TEST-X"];
     [MPGoogleAnalyticsTracker activateConfiguration:configuration];
-    
-    [MPGoogleAnalyticsTracker trackScreen:@"Main View"];
+    self.eventCount = 0;
 }
 
 - (IBAction)trackEvent:(id)sender
 {
-    [MPGoogleAnalyticsTracker trackEventOfCategory:@"Interaction" action:@"Button Click"
-                                             label:@"Track Event Button" value:@0];
+    [MPGoogleAnalyticsTracker trackEventOfCategory:@"Interaction" action:[NSString stringWithFormat:@"OSX Button Click - %lu",(unsigned long)self.eventCount]
+                                             label:nil value:nil];
+    self.eventCount += 1;
 }
 
 - (IBAction)trackTiming:(id)sender
@@ -41,3 +42,4 @@
 }
 
 @end
+
