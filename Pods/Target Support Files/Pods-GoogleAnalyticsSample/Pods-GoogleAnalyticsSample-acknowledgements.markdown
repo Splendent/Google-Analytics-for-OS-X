@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## Google-Analytics-for-OS-X
+## Google-Analytics-for-OS-X-and-iOS
 
 The MIT License (MIT)
 

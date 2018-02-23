@@ -311,7 +311,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GoogleAnalyticsSample/Pods-GoogleAnalyticsSample-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Google-Analytics-for-OS-X-macOS/GoogleAnalyticsTracker.framework",
+				"${BUILT_PRODUCTS_DIR}/Google-Analytics-for-OS-X-and-iOS-macOS/GoogleAnalyticsTracker.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -347,7 +347,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GoogleAnalyticsIOSSample/Pods-GoogleAnalyticsIOSSample-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Google-Analytics-for-OS-X-iOS/GoogleAnalyticsTracker.framework",
+				"${BUILT_PRODUCTS_DIR}/Google-Analytics-for-OS-X-and-iOS-iOS/GoogleAnalyticsTracker.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
