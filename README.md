@@ -1,17 +1,17 @@
-# Google-Analytics-for-OS-X
-Google Analytics SDK for mac OS
+# Google-Analytics-for-OS-X-and-iOS
+Google Analytics SDK for mac OS and iOS
+
+Yet another wrapper, but cross-platform, forked from [MacPaw's Google-Analytics-for-OS-X](https://github.com/MacPaw/Google-Analytics-for-OS-X)
 
 This is an Objective-C wrapper around [Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide)
 
 ## Installation
-Google-Analytics-for-OS-X is available through [CocoaPods](http://cocoapods.org). To install
+Google-Analytics-for-OS-X-and-iOS is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod "Google-Analytics-for-OS-X"
 ```
-
-Alternatively, you can just clone the repo, build `GoogleAnalyticsTracker` target and use the framework in your project.
 
 ## Usage
 
@@ -34,13 +34,17 @@ Alternatively, you can just clone the repo, build `GoogleAnalyticsTracker` targe
                                                time:@100 label:@""];
 ```
 
-#### Debug Window
+#### Debug Window on mac OS
 
 There is a special debug window included in the framework. It can be used by developers/QA/marketing for testing.
 
-![ScreenShot](https://raw.githubusercontent.com/MacPaw/Google-Analytics-for-OS-X/master/screenshot.png)
+![ScreenShot](https://raw.githubusercontent.com/Splendent/Google-Analytics-for-OS-X/master/screenshot.png)
 
-#License
+#### Debug Window on iOS
 
-Google-Analytics-for-OS-X is licensed under the MIT License. See the LICENSE file for more information.
+![ScreenShotIOS](https://raw.githubusercontent.com/Splendent/Google-Analytics-for-OS-X/master/screenshot-ios.png)
+
+# License
+
+Google-Analytics-for-OS-X-and-iOS is licensed under the MIT License. See the LICENSE file for more information.
 
