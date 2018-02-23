@@ -10,7 +10,7 @@ Google-Analytics-for-OS-X-and-iOS is available through [CocoaPods](http://cocoap
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "Google-Analytics-for-OS-X"
+pod "Google-Analytics-for-OS-X-and-iOS"
 ```
 
 ## Usage

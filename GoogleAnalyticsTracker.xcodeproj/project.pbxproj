@@ -37,8 +37,8 @@
 		6269F125203D203300EEA2C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6269F127203D203300EEA2C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6269F128203D203300EEA2C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6269F13A203D2DEA00EEA2C5 /* Google-Analytics-for-OS-X.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Google-Analytics-for-OS-X.podspec"; sourceTree = "<group>"; };
 		62CDB2C3203FC22F00001007 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		62CDB2C4203FC78900001007 /* Google-Analytics-for-OS-X-and-iOS.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Google-Analytics-for-OS-X-and-iOS.podspec"; sourceTree = "<group>"; };
 		63D6C1BAA4B6ECB429CD21D9 /* Pods-GoogleAnalyticsIOSSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleAnalyticsIOSSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoogleAnalyticsIOSSample/Pods-GoogleAnalyticsIOSSample.debug.xcconfig"; sourceTree = "<group>"; };
 		98BFD02D1C1B0226002F9A64 /* GoogleAnalyticsTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleAnalyticsTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F8F36C1C1E1233000D0987 /* GoogleAnalyticsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleAnalyticsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				62CDB2C3203FC22F00001007 /* README.md */,
-				6269F13A203D2DEA00EEA2C5 /* Google-Analytics-for-OS-X.podspec */,
+				62CDB2C4203FC78900001007 /* Google-Analytics-for-OS-X-and-iOS.podspec */,
 				98F8F36D1C1E1233000D0987 /* GoogleAnalyticsSample */,
 				6269F118203D203300EEA2C5 /* GoogleAnalyticsIOSSample */,
 				98BFD02E1C1B0226002F9A64 /* Products */,
