@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy) NSString *analyticsIdentifier;
 @property (nonatomic, strong) NSMutableDictionary *duplicateIdentifiers;
+@property (nonatomic, strong) NSMutableDictionary *addtionalIdentifiers;
 
 @end
 
@@ -29,22 +30,14 @@
     self = [super init];
     if (self)
     {
+        _addtionalIdentifiers = [NSMutableDictionary dictionary];
+        _duplicateIdentifiers = [NSMutableDictionary dictionary];
         _analyticsIdentifier = identifier;
     }
     
     return self;
 }
-
-- (NSMutableDictionary *)duplicateIdentifiers
-{
-    if (!_duplicateIdentifiers)
-    {
-        _duplicateIdentifiers = [NSMutableDictionary dictionary];
-    }
-    
-    return _duplicateIdentifiers;
-}
-
+#pragma mark - duplicate event id
 - (void)duplicateEventsForCategory:(NSString *)category toGAID:(NSString *)identifier
 {
     if (category && identifier)
@@ -58,9 +51,25 @@
     [self.duplicateIdentifiers removeObjectForKey:category];
 }
 
-- (NSDictionary *)additionalIdentifiers
+- (NSDictionary *)duplicatedEventIdentifiers
 {
     return [self.duplicateIdentifiers copy];
 }
 
+#pragma mark - addtional event id
+- (void)addEventsForCategory:(NSString *)category toGAID:(NSString *)identifier
+{
+    if (category && identifier)
+    {
+        self.addtionalIdentifiers[category] = identifier;
+    }
+}
+- (void)stopAddingEventsForCategory:(NSString *)category
+{
+    [self.addtionalIdentifiers removeObjectForKey:category];
+}
+- (NSDictionary *)addtionalEventIdentifiers
+{
+    return [self.addtionalIdentifiers copy];
+}
 @end

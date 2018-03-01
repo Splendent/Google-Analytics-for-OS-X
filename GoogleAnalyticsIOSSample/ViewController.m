@@ -21,6 +21,7 @@
     [super viewDidLoad];
     
     MPAnalyticsConfiguration *configuration = [[MPAnalyticsConfiguration alloc] initWithAnalyticsIdentifier:@"UA-TEST-X"];
+    [configuration addEventsForCategory:@"Specific event for another GAID" toGAID:@"UA-TEST-Y"];
     [MPGoogleAnalyticsTracker activateConfiguration:configuration];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(analyticsReceived:)
@@ -42,6 +43,10 @@
 {
     
     [MPGoogleAnalyticsTracker trackEventOfCategory:@"Interaction" action:[NSString stringWithFormat:@"iOS Button Click - %lu",(unsigned long)self.events.count]
+                                             label:nil value:nil];
+}
+- (IBAction)trackEventWithAnotherGAID:(id)sender {
+    [MPGoogleAnalyticsTracker trackEventOfCategory:@"Specific event for another GAID" action:[NSString stringWithFormat:@"iOS Button Click - %lu",(unsigned long)self.events.count]
                                              label:nil value:nil];
 }
 

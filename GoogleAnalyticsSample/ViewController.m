@@ -19,6 +19,7 @@
     [super viewDidLoad];
     
     MPAnalyticsConfiguration *configuration = [[MPAnalyticsConfiguration alloc] initWithAnalyticsIdentifier:@"UA-TEST-X"];
+    [configuration addEventsForCategory:@"Specific event for another GAID" toGAID:@"UA-TEST-Y"];
     [MPGoogleAnalyticsTracker activateConfiguration:configuration];
     self.eventCount = 0;
 }
@@ -26,6 +27,11 @@
 - (IBAction)trackEvent:(id)sender
 {
     [MPGoogleAnalyticsTracker trackEventOfCategory:@"Interaction" action:[NSString stringWithFormat:@"OSX Button Click - %lu",(unsigned long)self.eventCount]
+                                             label:nil value:nil];
+    self.eventCount += 1;
+}
+- (IBAction)trackEventWithAnotherGAID:(id)sender {
+    [MPGoogleAnalyticsTracker trackEventOfCategory:@"Specific event for another GAID" action:[NSString stringWithFormat:@"OSX Button Click - %lu",(unsigned long)self.eventCount]
                                              label:nil value:nil];
     self.eventCount += 1;
 }

@@ -199,17 +199,25 @@ static id _sharedInstance = nil;
     
     MPAnalyticsConfiguration *activeConfiguration = self.activeConfiguration;
     
-    BOOL shouldDuplicateEvent = eventCategory && activeConfiguration.additionalIdentifiers[eventCategory];
     NSArray *allIdentifiers = nil;
-    
-    if (shouldDuplicateEvent)
+    BOOL shouldSendAddtionalEvent = eventCategory && activeConfiguration.addtionalEventIdentifiers[eventCategory];
+    if (shouldSendAddtionalEvent)
     {
-        allIdentifiers = @[ activeConfiguration.analyticsIdentifier, activeConfiguration.additionalIdentifiers[eventCategory] ];
+        allIdentifiers = @[ activeConfiguration.addtionalEventIdentifiers[eventCategory] ];
     }
     else
     {
-        allIdentifiers = @[ activeConfiguration.analyticsIdentifier ];
+        BOOL shouldDuplicateEvent = eventCategory && activeConfiguration.duplicatedEventIdentifiers[eventCategory];
+        if (shouldDuplicateEvent)
+        {
+            allIdentifiers = @[ activeConfiguration.analyticsIdentifier, activeConfiguration.duplicatedEventIdentifiers[eventCategory] ];
+        }
+        else
+        {
+            allIdentifiers = @[ activeConfiguration.analyticsIdentifier ];
+        }
     }
+    
     
     NSURL *analyticsURL = [NSURL URLWithString:@"https://www.google-analytics.com/collect"];
     
