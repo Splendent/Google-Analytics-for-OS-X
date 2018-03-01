@@ -44,7 +44,7 @@ There is a special debug window included in the framework. It can be used by dev
 
 ![ScreenShotIOS](https://raw.githubusercontent.com/Splendent/Google-Analytics-for-OS-X/master/screenshot-ios.png)
 
-# License
+#License
 
 Google-Analytics-for-OS-X-and-iOS is licensed under the MIT License. See the LICENSE file for more information.
 
