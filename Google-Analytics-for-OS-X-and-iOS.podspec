@@ -22,6 +22,5 @@ Pod::Spec.new do |s|
   s.source_files = "GoogleAnalyticsTracker/*.{h,m,xib}"
   s.osx.source_files = "GoogleAnalyticsTracker/osx/*.{h,m,xib}"
   s.ios.source_files = "GoogleAnalyticsTracker/ios/*.{h,m,xib}"
-  s.module_name = "GoogleAnalyticsTracker"
-  s.header_dir = "GoogleAnalyticsTracker"
+s.module_name = "GoogleAnalyticsTracker"
 end
