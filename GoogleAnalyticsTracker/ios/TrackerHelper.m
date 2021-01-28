@@ -7,6 +7,7 @@
 
 #import "TrackerHelper.h"
 @import UIKit;
+@import WebKit;
 @interface TrackerHelper()
 /* Application-specific information */
 @property (nonatomic, strong) NSString *applicationName;
@@ -32,8 +33,8 @@
 {
     if (!_userAgentString)
     {
-        UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-        NSString* secretAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+        WKWebView *wkWebView = [[WKWebView alloc] initWithFrame:CGRectZero];
+        NSString *secretAgent = [wkWebView valueForKey:@"userAgent"];
         _userAgentString = secretAgent?secretAgent:@"Unknown-userAgentString";
     }
     

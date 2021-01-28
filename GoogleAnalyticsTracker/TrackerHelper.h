@@ -14,7 +14,7 @@
  */
 - (NSString * _Nonnull)userIdentifier;
 /**
- * Gnerated by executing javascript `navigator.userAgent` on UIWebView(iOS)\WebView(OSX)
+ * Gnerated by executing javascript `navigator.userAgent` on UI_WebView(iOS)\WebView(OSX)
  */
 - (NSString * _Nonnull)userAgentString;
 /**
