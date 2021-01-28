@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Google-Analytics-for-OS-X-and-iOS"
-  s.version          = "1.1.2"
+  s.version          = "1.1.3"
   s.summary          = "Google Analytics SDK for OS X and iOS"
   s.description      = <<-DESC
   This is an Objective-C wrapper around Google's Measurement Protocol
